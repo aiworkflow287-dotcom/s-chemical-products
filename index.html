@@ -393,3 +393,199 @@ renderAll();
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Form</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    color:#333;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+}
+
+.product{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.product select{
+    flex:3;
+}
+
+.product input{
+    flex:1;
+}
+
+button{
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    margin-top:20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#218838;
+}
+
+.cart{
+    margin-top:20px;
+    padding:15px;
+    background:#f8f9fa;
+    border-radius:5px;
+}
+
+.cart ul{
+    padding-left:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Order Form</h1>
+
+<div class="product">
+<select id="product">
+<option>Wet Mop Round Set</option>
+<option>Wet Mop Round</option>
+<option>Metal Clip</option>
+<option>Dry Mop Set White</option>
+<option>Round Wet Mop Set</option>
+<option>Clip Mop Set</option>
+</select>
+
+<input type="number" id="qty" min="1" value="1">
+</div>
+
+<button onclick="addToCart()">Add To Cart</button>
+
+<div class="cart">
+<h3>Cart Items</h3>
+<ul id="cartList"></ul>
+</div>
+
+<h2>Customer Details</h2>
+
+<label>Customer Name</label>
+<input type="text" id="customerName">
+
+<label>Company Name</label>
+<input type="text" id="companyName">
+
+<label>Society Name</label>
+<input type="text" id="societyName">
+
+<label>Address</label>
+<textarea id="address" rows="4"></textarea>
+
+<label>Contact Number</label>
+<input type="tel" id="contact">
+
+<label>Email</label>
+<input type="email" id="email">
+
+<button onclick="placeOrder()">Place Order</button>
+
+</div>
+
+<script>
+
+let cart=[];
+
+function addToCart(){
+
+let product=document.getElementById("product").value;
+let qty=document.getElementById("qty").value;
+
+cart.push({
+product:product,
+qty:qty
+});
+
+displayCart();
+}
+
+function displayCart(){
+
+let list=document.getElementById("cartList");
+list.innerHTML="";
+
+cart.forEach(item=>{
+let li=document.createElement("li");
+li.textContent=item.product + " - Qty: " + item.qty;
+list.appendChild(li);
+});
+
+}
+
+function placeOrder(){
+
+let name=document.getElementById("customerName").value;
+let company=document.getElementById("companyName").value;
+let society=document.getElementById("societyName").value;
+let address=document.getElementById("address").value;
+let contact=document.getElementById("contact").value;
+let email=document.getElementById("email").value;
+
+if(name==="" || contact===""){
+alert("Please fill Customer Name and Contact Number");
+return;
+}
+
+alert(
+"Order Placed Successfully!\n\n"+
+"Customer: "+name+
+"\nCompany: "+company+
+"\nSociety: "+society+
+"\nContact: "+contact+
+"\nEmail: "+email+
+"\nItems: "+cart.length
+);
+
+}
+
+</script>
+
+</body>
+</html>
